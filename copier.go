@@ -1,7 +1,7 @@
 package main
 
-import "fmt"
 import "os"
+import "log"
 
 func main() {
 	sourcePath := os.Args[1]
@@ -11,23 +11,25 @@ func main() {
 		fileName := f.Name()
 		targetFolderName := parseFolderName(fileName)
 		if targetFolderName == "" {
-			fmt.Println("Unable to parse file name into folder name: " + fileName)
+			log.Println("Unable to parse file name into folder name: " + fileName)
 		} else {
 			fullSourceFileName := sourcePath + "\\" + fileName
 			fullTargetFolderName := targetPath + "\\" + targetFolderName
 			fullTargetFileName := fullTargetFolderName + "\\" + fileName
-			fmt.Println("Source File: " + fullSourceFileName)
-			fmt.Println("Target Folder: " + fullTargetFolderName)
-			fmt.Println("Target File: " + fullTargetFileName)
-			
-			fmt.Println("Creating folder is if does not extist: " + fullTargetFolderName)
+			log.Println("Source File: " + fullSourceFileName)
+			log.Println("Target Folder: " + fullTargetFolderName)
+			log.Println("Target File: " + fullTargetFileName)
+
+			log.Println("Creating folder is if does not extist: " + fullTargetFolderName)
 			checkAndCreateFolder(fullTargetFolderName)
-			
-			fmt.Println("Copying file: " + fullTargetFileName)
+
+			log.Println("Copying file: " + fullTargetFileName)
 			if copyFile(fullSourceFileName, fullTargetFileName) {
-				fmt.Println("Deleting original file: " + fullTargetFileName)
+				log.Println("Deleting original file: " + fullTargetFileName)
 				os.Remove(fullSourceFileName)
-			} 
+			} else {
+				log.Println("Unalbe to copy file: " + fullTargetFileName)
+			}
 		}
 	}
 }
