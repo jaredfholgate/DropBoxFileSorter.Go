@@ -1,8 +1,8 @@
 package main
 
 import (
-	"path/filepath"
 	"fmt"
+	"path/filepath"
 	"time"
 )
 
@@ -26,6 +26,6 @@ func parseFolderName(fileName string) string {
 		rootPath = "Photos"
 	}
 
-	folderName := rootPath + "//" + fmt.Sprintf("%04d", date.Year()) + " " + fmt.Sprintf("%02d", date.Month()) + " " + date.Month().String()
+	folderName := rootPath + "\\" + fmt.Sprintf("%04d", date.Year()) + " " + fmt.Sprintf("%02d", date.Month()) + " " + date.Month().String()
 	return folderName
 }
