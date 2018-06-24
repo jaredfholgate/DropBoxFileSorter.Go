@@ -7,7 +7,7 @@ import (
 )
 
 // Copy a file
-func copyFile(sourceFile string, destinationFile string) {
+func copyFile(sourceFile string, destinationFile string) bool {
     // Open original file
     originalFile, err := os.Open(sourceFile)
     if err != nil {
@@ -34,5 +34,7 @@ func copyFile(sourceFile string, destinationFile string) {
     err = newFile.Sync()
     if err != nil {
         log.Fatal(err)
+        return false
     }
+    return true
 }
