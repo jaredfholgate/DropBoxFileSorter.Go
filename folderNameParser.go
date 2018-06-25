@@ -2,30 +2,27 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"path/filepath"
 	"time"
 )
 
 func parseFolderName(fileName string) string {
-	dateSlice := []rune(fileName)
-	dateString := string(dateSlice[0:10])
+	dateString := string([]rune(fileName)[0:10])
 	date, err := time.Parse("2006-01-02", dateString)
 	if err != nil {
-		fmt.Println("Error occurred parsing " + dateString)
+		log.Println("Error occurred parsing: " + dateString)
 		return ""
 	}
 
-	extension := filepath.Ext(fileName)
+	return rootFolder(filepath.Ext(fileName)) + "\\" + fmt.Sprintf("%04d", date.Year()) + " " + fmt.Sprintf("%02d", date.Month()) + " " + date.Month().String()
+}
 
-	var rootPath string
-
+func rootFolder(extension string) string {
+	rootPath := "Photos"
 	switch extension {
 	case ".mov", ".mp4":
 		rootPath = "Video"
-	default:
-		rootPath = "Photos"
 	}
-
-	folderName := rootPath + "\\" + fmt.Sprintf("%04d", date.Year()) + " " + fmt.Sprintf("%02d", date.Month()) + " " + date.Month().String()
-	return folderName
+	return rootPath
 }
