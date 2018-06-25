@@ -10,6 +10,10 @@ func main() {
 	sourcePath := os.Args[1]
 	targetPath := os.Args[2]
 
+	moveFiles(sourcePath, targetPath)
+}
+
+func moveFiles(sourcePath string, targetPath string) {
 	for _, f := range getFiles(sourcePath) {
 		fileName := f.Name()
 
