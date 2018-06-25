@@ -43,8 +43,8 @@ func main() {
 }
 
 func shouldCopyFile(fileDate time.Time) bool {
-	hourAgo := time.Now().Add(time.Duration(-1) * time.Minute)
-	if hourAgo.Sub(fileDate) > 0 {
+	fiveMinutesAgo := time.Now().Add(time.Duration(-5) * time.Minute)
+	if fiveMinutesAgo.Sub(fileDate) > 0 {
 		return true
 	}
 	return false
