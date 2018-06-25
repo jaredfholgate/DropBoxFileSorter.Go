@@ -29,8 +29,8 @@ func moveFiles() {
 	for _, f := range getFiles(sourcePath) {
 		fileName := f.Name()
 
-		if !shouldCopyFile(f.ModTime()) {
-			log.Println("Skipping file as it is less than an hour old: " + fileName)
+		if !overFiveMinutes(f.ModTime()) {
+			log.Println("Skipping file as it is less than 5 minutes old: " + fileName)
 		} else {
 			targetFolderName := parseFolderName(fileName)
 			if targetFolderName == "" {
@@ -43,7 +43,7 @@ func moveFiles() {
 				log.Println("Target Folder: " + fullTargetFolderName)
 				log.Println("Target File: " + fullTargetFileName)
 
-				log.Println("Creating folder is if does not extist: " + fullTargetFolderName)
+				log.Println("Creating folder is if does not exist: " + fullTargetFolderName)
 				checkAndCreateFolder(fullTargetFolderName)
 
 				log.Println("Copying file: " + fullTargetFileName)
@@ -58,7 +58,7 @@ func moveFiles() {
 	}
 }
 
-func shouldCopyFile(fileDate time.Time) bool {
+func overFiveMinutes(fileDate time.Time) bool {
 	fiveMinutesAgo := time.Now().Add(time.Duration(-5) * time.Minute)
 	if fiveMinutesAgo.Sub(fileDate) > 0 {
 		return true

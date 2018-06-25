@@ -6,11 +6,7 @@ import (
 )
 
 func TestShouldCopyFile(t *testing.T) {
-	oldTime, err := time.Parse("2006-01-02", "2018-01-01")
-	if err != nil {
-		t.Error("Failed to parse date.")
-	}
-	shouldCopy := shouldCopyFile(oldTime)
+	shouldCopy := overFiveMinutes(time.Now().Add(time.Duration(-6) * time.Minute))
 	if !shouldCopy {
 		t.Errorf("Should not copy is incorrect, got: %s, want: %s.", "true", "false")
 	}
@@ -18,7 +14,7 @@ func TestShouldCopyFile(t *testing.T) {
 
 func TestShouldNotCopyFile(t *testing.T) {
 
-	shouldCopy := shouldCopyFile(time.Now())
+	shouldCopy := overFiveMinutes(time.Now())
 	if shouldCopy {
 		t.Errorf("Should copy is incorrect, got: %s, want: %s.", "true", "false")
 	}
