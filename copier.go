@@ -1,19 +1,31 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"os"
 	"time"
 )
 
-func main() {
-	sourcePath := os.Args[1]
-	targetPath := os.Args[2]
+var (
+	sourcePath string
+	targetPath string
+)
 
-	moveFiles(sourcePath, targetPath)
+func init() {
+	flag.StringVar(&sourcePath, "sourcePath", "", "The source folder path.")
+	flag.StringVar(&targetPath, "targetPath", "", "The target folder path.")
+	flag.Parse()
 }
 
-func moveFiles(sourcePath string, targetPath string) {
+func main() {
+	if sourcePath == "" || targetPath == "" {
+		panic("Source path and target path are required!")
+	}
+	moveFiles()
+}
+
+func moveFiles() {
 	for _, f := range getFiles(sourcePath) {
 		fileName := f.Name()
 
